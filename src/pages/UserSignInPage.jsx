@@ -12,7 +12,7 @@ const UserSignInPage = () => {
       });
     
     
-    const {signInUser ,isError ,isSuccess,data} = useUserSignIn()
+    const {signInUser,signInIsError ,signInIsSuccess,signInData,signInError} = useUserSignIn()
 
     const handleChange=(e)=>{
         setFormData({...formData,[e.target.name]:[e.target.value]})
@@ -33,15 +33,15 @@ const UserSignInPage = () => {
     }
 
     useEffect(() => {
-        if (isSuccess) {
+        if (signInIsSuccess) {
           toast.success('Sign In successful!');
           setTimeout(() => {
             navigate('/logout');
           }, 2000); 
-        } else if (isError) {
+        } else if (signInIsError) {
           toast.error('Error in Sign In');
         }
-      }, [isSuccess, isError]);
+      }, [signInIsError, signInIsSuccess]);
     
   return (
     <>

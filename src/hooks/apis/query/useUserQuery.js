@@ -3,11 +3,13 @@ import { getUserProfile } from "../../../apis/TwitterUserApi"
 
 
 export const useUserGetProfile = ()=>{
-    const {isLoading , isSuccess ,isError ,data:UserProfile ,error}=useQuery({
+    const {isLoading:userProfileIsLoading , isSuccess:userProfileIsSuccess ,isError:userProfileIsError ,data:UserProfileData ,error}=useQuery({
         queryFn:getUserProfile,
+        queryKey: ['userProfile'],
+        cacheTime:0
     })
 
-    return {isLoading,isSuccess,isError,UserProfile,error}
+    return {isLoading:userProfileIsLoading,userProfileIsSuccess,userProfileIsError,UserProfileData}
 }
 
 // export const useUserLogOut = ()=>{
