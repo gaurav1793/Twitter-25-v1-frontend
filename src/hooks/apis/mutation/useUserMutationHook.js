@@ -18,20 +18,20 @@ export const useUserSignUp = ()=>{
 
 
 export const useUserSignIn =()=>{
-    const {mutateAsync:signInUser ,isError ,isSuccess,data,error}=useMutation({
+    const {mutateAsync:signInUser ,isError:signInIsError ,isSuccess:signInIsSuccess,data:signInData,error:signInError}=useMutation({
         mutationFn:(data)=>userSignInApi(data),
         onSuccess:(data)=>{console.log("success usersignIN inside hook",data)},
         onError:(error)=>{console.log("error usersignIN inside hook",error)}
     })
-    return {signInUser ,isError ,isSuccess,data,error}
+    return {signInUser ,signInIsError ,signInIsSuccess,signInData,signInError}
 }
 
 
 
 export const useUserLogOut =()=>{
-    const {mutateAsync:LogOutUser ,isError ,isSuccess,data,error} = useMutation({
+    const {mutateAsync:LogOutUser ,isError:logOutisError ,isSuccess:logOutIsSuccess,data,error} = useMutation({
         mutationFn:userLogOutApi,
     })
 
-    return {LogOutUser ,isError ,isSuccess,data,error}
+    return {LogOutUser ,logOutisError ,logOutIsSuccess}
 }
