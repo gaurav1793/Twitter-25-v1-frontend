@@ -3,6 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import { useUserSignIn } from '../hooks/apis/mutation/useUserMutationHook';
 import { useNavigate } from 'react-router-dom';
+import { useUserProfileStore } from '../store/useUserProfileStore';
 
 const UserSignInPage = () => {
     const navigate =useNavigate();
@@ -13,9 +14,10 @@ const UserSignInPage = () => {
     
     
     const {signInUser,signInIsError ,signInIsSuccess,signInData,signInError} = useUserSignIn()
+    const {setUserProfile}=useUserProfileStore();
 
     const handleChange=(e)=>{
-        setFormData({...formData,[e.target.name]:[e.target.value]})
+        setFormData({...formData,[e.target.name]:e.target.value})
     }
 
     const handleClick =()=>{
@@ -33,8 +35,10 @@ const UserSignInPage = () => {
     }
 
     useEffect(() => {
-        if (signInIsSuccess) {
+        if (signInIsSuccess && signInData) {
+          console.log(signInData);
           toast.success('Sign In successful!');
+          setUserProfile(signInData.data.username,signInData.data.avtar,signInData.data.coverImage,signInData.data.email,signInData.data._id);
           setTimeout(() => {
             navigate('/logout');
           }, 2000); 
