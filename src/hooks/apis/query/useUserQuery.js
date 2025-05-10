@@ -4,7 +4,7 @@ import { getUserProfile } from "../../../apis/TwitterUserApi"
 
 export const useUserGetProfile = ()=>{
     const {isLoading:userProfileIsLoading , isSuccess:userProfileIsSuccess ,isError:userProfileIsError ,data:UserProfileData ,error}=useQuery({
-        queryFn:getUserProfile,
+        queryFn:()=>getUserProfile(),
         queryKey: ['userProfile'],
         cacheTime:0
     })
