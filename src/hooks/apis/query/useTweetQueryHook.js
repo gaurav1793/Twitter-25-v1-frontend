@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { getAllTweetsApi } from "../../../apis/TwiiterTweetsApi"
+import { getAllTweetsApi, getTweetsById } from "../../../apis/TwiiterTweetsApi"
 
 
 
@@ -13,11 +13,13 @@ export const useGetAllTweetHook = ()=>{
     return {isFetching,isFetched,isError,AllTweets ,getAllTweetsError,getTweetList}
 } 
 
-export const useGetAllTweetsByIdHook =()=>{
-    const { isFetching:GTbyIdisFetching,isFetched:GTbyIdisFetched,isError:GTbyIdisError,data:GTbyIdData ,error:GTbyIdError ,refetch:GTbyId}=useQuery({
-        queryFn:(id)=>getTweetsById(id),
+export const useGetAllTweetsByIdHook =(id)=>{
+    console.log(id)
+    const { isFetching:GTbyIdisFetching,isFetched:GTbyIdisFetched,isError:GTbyIdisError,data ,error:GTbyIdError ,refetch:gtFn}=useQuery({
+        queryFn:()=>getTweetsById(id),
         queryKey:['AllTweetsById'],
-        enabled: false,
+        enabled:false,
     })
-    return {GTbyIdisFetching,GTbyIdisFetched,GTbyIdisError,GTbyIdData,GTbyIdError,GTbyId}
+
+    return {GTbyIdisFetching,GTbyIdisFetched,GTbyIdisError,data,GTbyIdError,gtFn}
 }

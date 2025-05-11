@@ -34,9 +34,10 @@ export const deleteTweetApi = async(id)=>{
 
 export const getTweetsById =async(id)=>{
     try {
-        const response = await axios.get(`/Tweets/getTweets/${id}`,{withCredentials: true })
-        console.log(response.data);
-        return response.data;
+        console.log("heelo bhai",id);
+        const response = await axios.get(`/Tweets/getTweetsbyId/${id}`,{withCredentials: true })
+        console.log(response.data.data);
+        return response?.data?.data;
     } catch (error) {
         throw error
     }

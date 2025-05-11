@@ -4,7 +4,7 @@ import { IoMdHeart } from "react-icons/io";
 import { useUserProfileStore } from '../../store/useUserProfileStore';
 
 
-const Tweets = ({tweet,deleteTweet}) => {
+const Tweets = ({tweet,deleteTweet,showP}) => {
     const [vid,setVid]=useState('');
     const [pic,setPic]=useState('');
     const {userProfile}=useUserProfileStore()
@@ -43,7 +43,7 @@ const Tweets = ({tweet,deleteTweet}) => {
 
         <div className='w-1/4 h-1/4'>
             <div>
-                <img src={tweet.avtar} className='h-full rounded-md shadow-xl hover:border-2 hover:border-blue-400 object-cover'/>
+                <img src={tweet.avtar} data-userid={tweet.userId} onClick={showP} className='h-full rounded-md shadow-xl hover:border-2 cursor-pointer hover:border-blue-400 object-cover'/>
                 
             </div>
         </div>

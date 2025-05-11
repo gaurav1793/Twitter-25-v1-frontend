@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { getUserProfile } from "../../../apis/TwitterUserApi"
+import { getUserProfile, getUserProfileById } from "../../../apis/TwitterUserApi"
 
 
 export const useUserGetProfile = ()=>{
@@ -12,10 +12,12 @@ export const useUserGetProfile = ()=>{
     return {isLoading:userProfileIsLoading,userProfileIsSuccess,userProfileIsError,UserProfileData}
 }
 
-// export const useUserLogOut = ()=>{
-//     const {isLoading , isSuccess ,isError ,error}=useQuery({
-//         queryFn:userLogOutApi,
-//     })
-
-//     return {isLoading , isSuccess ,isError ,error}
-// }
+export const useGetUserById = (id)=>{
+    console.group("hi bhai from q",id);
+    const {isFetching:GUByIdisFetching,isFetched:GUByIdisFetched,data : GUByIdData,isError:GUByIdisError,refetch:GUByIdFn}=useQuery({
+        queryFn:()=>getUserProfileById(id),
+        queryKey:['UserById'],
+        enabled:false,
+    })
+    return {GUByIdisFetching,GUByIdisFetched,GUByIdData,GUByIdisError,GUByIdFn}
+}
