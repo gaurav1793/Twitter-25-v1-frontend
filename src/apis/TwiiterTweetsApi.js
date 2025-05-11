@@ -20,3 +20,12 @@ export const createTweet = async(data)=>{
         throw error
     }
 }
+
+
+export const deleteTweetApi = async(id)=>{
+    try {
+        const response = await axios.delete(`/Tweets/deleteTweet/${id}`,{withCredentials: true })
+    } catch (error) {
+        throw error
+    }
+}
