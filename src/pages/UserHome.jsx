@@ -9,6 +9,7 @@ import { useUserProfileStore } from '../store/useUserProfileStore';
 import TweetInput from '../components/molecules/TweetInput';
 import { useCreateTweetHook } from '../hooks/apis/mutation/useTweetsMutationHook';
 import { useGetAllTweetHook } from '../hooks/apis/query/useTweetQueryHook';
+import NavBar from '../components/molecules/NavBar';
 
 
 const UserHome = () => {
@@ -16,6 +17,7 @@ const UserHome = () => {
   const navigate =useNavigate();
   const [dropMenu,setDropMenu]=useState(false);
   const {userProfile}=useUserProfileStore();
+
   const { createTweetFn,CTisError,CTisPending,CTisSuccess,CTdata} =useCreateTweetHook();
   const {isFetching,isFetched,isError,AllTweets ,getAllTweetsError,getTweetList} = useGetAllTweetHook()
 
@@ -36,9 +38,7 @@ const UserHome = () => {
     }
   },[logOutIsSuccess,CTisSuccess,CTdata])
 
-  const handleDropMenu=(e)=>{
-    setDropMenu(true);
-  }
+  
 
   if(userProfile==null){
     return <div>
@@ -46,34 +46,20 @@ const UserHome = () => {
       loading.....
     </div>
   }
-
+  const handleDropMenu=(e)=>{
+    setDropMenu(true);
+  }
   return (
     <>
-    {   userProfile &&<div className='flex flex-col h-screen w-full relative overflow-hidden'>
-      <div className='container max-h-16 w-full bg-white py-4 px-12  flex justify-between items-center sticky top-0'>
-      <div className='text-2xl font-bold text-black'>Twitter clone</div>
-      <div className='w-14 h-14 relative'>
-        <img onClick={handleDropMenu} className='h-full w-full object-cover  rounded-full cursor-pointer' src={userProfile.userAvtar}/>
-        {
-          dropMenu && <div className=' absolute top-full -right-3 h-[40px] w-[70px] shadow-md border border-gray-100 rounded-lg  bg-white text-grey-500 hover:text-blue-600 hover:border-blue-500 z-50' onMouseLeave={()=>{
-            setDropMenu(false);
-          }}>
-            <button onClick={handleLogout} className='h-full w-full'>logout</button>
-            <ToastContainer position='top-center'/>
-          </div>
-        }
-      </div>
-    </div>
+    {   userProfile &&
+    <div className='flex flex-col h-screen w-full relative overflow-hidden'>
+      <NavBar userAvtar={userProfile.userAvtar} handleDropMenu={handleDropMenu} handleLogout={handleLogout} dropMenu={dropMenu} setDropMenu={setDropMenu} />
     <div className='bg-[#e2e8f0] h-full w-full md:flex overflow-auto'>
       <TweetInput avtar={userProfile.userAvtar} username={userProfile.userName} createTweetFn={createTweetFn}  userId={userProfile.userId}/>
       <TweetsList isFetched={isFetched} isFetching={isFetching} getTweetList={getTweetList} AllTweets={AllTweets} isError={isError} getAllTweetsError={getAllTweetsError}/>
     </div>
     </div>}
-    {/* <button onClick={handleLogout} className='h-[200px] w-[200px]'>logout</button>
-    {userProfileIsSuccess && UserProfileData && (<div className='h-[500px] w-[500px] bg-black text-white'>
-       {UserProfileData.avtar} hello bhai
-      </div>)} */}
-      <ToastContainer/>
+    <ToastContainer/>
     </>
   )
 }
