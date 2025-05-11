@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { CiImageOn } from "react-icons/ci";
 
-const TweetInput = ({avtar,username,createTweetFn}) => {
+const TweetInput = ({avtar,username,createTweetFn,userId}) => {
     const [body,setBody]=useState('')
     const [img,setImg]=useState(null)
     
@@ -15,13 +15,14 @@ const TweetInput = ({avtar,username,createTweetFn}) => {
         data.append('username',username);
         data.append('avtar',avtar);
         data.append('body',body);
+        data.append('userId',userId);
         createTweetFn(data);
         setBody('')
         setImg(null);
     }
   return (
     <> 
-        <div className="bg-white h-1/3 w-4/6 md:h-1/2 rounded-2xl shadow-lg md:w-3/6 p-4 ml-20 mb-4 mt-4 space-y-2">
+        <div className="bg-white h-1/3 w-4/6 md:h-1/2 rounded-2xl shadow-lg md:w-3/6 p-4 ml-20 mb-4 mt-4 space-y-2 md:sticky top-4">
             <div className='flex justify-between items-center  h-1/3 px-2'>
                 <img src={avtar} className='w-1/3 h-full md:h-auto rounded-md shadow-xl object-cover'/>
                 

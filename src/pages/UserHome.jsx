@@ -32,10 +32,7 @@ const UserHome = () => {
       },2000)
     }  
     if(CTisSuccess && CTdata){
-      toast.success('Tweet Created Success !!');
-      setTimeout(()=>{
         getTweetList();
-      },2000)
     }
   },[logOutIsSuccess,CTisSuccess,CTdata])
 
@@ -68,8 +65,8 @@ const UserHome = () => {
       </div>
     </div>
     <div className='bg-[#e2e8f0] h-full w-full md:flex overflow-auto'>
-      <TweetInput avtar={userProfile.userAvtar} username={userProfile.userName} createTweetFn={createTweetFn}/>
-      <TweetsList isFetched={isFetched} isFetching={isFetching} getTweetList={getTweetList} AllTweets={AllTweets}/>
+      <TweetInput avtar={userProfile.userAvtar} username={userProfile.userName} createTweetFn={createTweetFn}  userId={userProfile.userId}/>
+      <TweetsList isFetched={isFetched} isFetching={isFetching} getTweetList={getTweetList} AllTweets={AllTweets} isError={isError} getAllTweetsError={getAllTweetsError}/>
     </div>
     </div>}
     {/* <button onClick={handleLogout} className='h-[200px] w-[200px]'>logout</button>

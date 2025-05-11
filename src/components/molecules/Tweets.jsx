@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { IoMdHeart } from "react-icons/io";
+import { useUserProfileStore } from '../../store/useUserProfileStore';
 
 
-const Tweets = ({tweet}) => {
+const Tweets = ({tweet,deleteTweet}) => {
     const [vid,setVid]=useState('');
     const [pic,setPic]=useState('');
-    
+    const {userProfile}=useUserProfileStore()
 
     useEffect(() => {
         const ext = tweet.img?.split('.').pop()?.toLowerCase();
@@ -16,6 +19,22 @@ const Tweets = ({tweet}) => {
             setPic(tweet.img);
         }
         }, [tweet.img]);
+
+
+        function handleHeart(e){
+            if(e.target.style.color!='red'){
+                e.target.style.color='red'
+            }
+            else{
+                e.target.style.color='gray'
+            } 
+        }
+        function handleDelete(){
+            console.log(tweet._id);
+            if(userProfile.userId===tweet.userId){
+                deleteTweet(tweet._id);
+            }  
+        }
   return (
     <>
     {
@@ -47,6 +66,10 @@ const Tweets = ({tweet}) => {
             <video src={vid} disablePictureInPicture controlsList="nodownload nofullscreen "  controls className="w-full h-auto object-cover" />
             </div>
         )}
+        <div className='flex gap-3 items-center'>
+            {userProfile.userId===tweet.userId &&<RiDeleteBin6Line onClick={handleDelete} className='cursor-pointer text-gray'/>}
+            <IoMdHeart className='text-gray-500' onClick={handleHeart}/>
+        </div>
         </div>
         </div>
             }
