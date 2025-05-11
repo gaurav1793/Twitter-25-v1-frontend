@@ -12,3 +12,12 @@ export const useGetAllTweetHook = ()=>{
     })
     return {isFetching,isFetched,isError,AllTweets ,getAllTweetsError,getTweetList}
 } 
+
+export const useGetAllTweetsByIdHook =()=>{
+    const { isFetching:GTbyIdisFetching,isFetched:GTbyIdisFetched,isError:GTbyIdisError,data:GTbyIdData ,error:GTbyIdError ,refetch:GTbyId}=useQuery({
+        queryFn:(id)=>getTweetsById(id),
+        queryKey:['AllTweetsById'],
+        enabled: false,
+    })
+    return {GTbyIdisFetching,GTbyIdisFetched,GTbyIdisError,GTbyIdData,GTbyIdError,GTbyId}
+}
