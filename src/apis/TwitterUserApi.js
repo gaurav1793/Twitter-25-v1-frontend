@@ -40,3 +40,13 @@ export const userLogOutApi = async()=>{
          throw error
     }
 }
+
+export const getUserProfileById = async(id)=>{
+    try {
+        const response = await axios.get(`/User/getUserById/${id}`,{ withCredentials: true })
+        console.log(response?.data)
+        return response?.data.data
+    } catch (error) {
+        throw error
+    }
+}

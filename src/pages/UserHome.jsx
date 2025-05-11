@@ -10,13 +10,18 @@ import TweetInput from '../components/molecules/TweetInput';
 import { useCreateTweetHook } from '../hooks/apis/mutation/useTweetsMutationHook';
 import { useGetAllTweetHook } from '../hooks/apis/query/useTweetQueryHook';
 import NavBar from '../components/molecules/NavBar';
+import UserAccount from '../components/molecules/UserAccount';
+import TweetIdByList from '../components/organism/TweetIdByList';
 
 
 const UserHome = () => {
   const  {LogOutUser ,logOutisError ,logOutIsSuccess} = useUserLogOut();
   const navigate =useNavigate();
   const [dropMenu,setDropMenu]=useState(false);
+  const [open,setopen]=useState(false)
+  const [profileId,setProfileId]=useState(null)
   const {userProfile}=useUserProfileStore();
+  
 
   const { createTweetFn,CTisError,CTisPending,CTisSuccess,CTdata} =useCreateTweetHook();
   const {isFetching,isFetched,isError,AllTweets ,getAllTweetsError,getTweetList} = useGetAllTweetHook()
@@ -49,15 +54,28 @@ const UserHome = () => {
   const handleDropMenu=(e)=>{
     setDropMenu(true);
   }
+
+  function showP(e){
+    console.log(e.target.dataset.userid);
+    const id=e.target.dataset.userid;
+    setProfileId(id);
+    setopen(!open);
+  }
   return (
     <>
     {   userProfile &&
     <div className='flex flex-col h-screen w-full relative overflow-hidden'>
       <NavBar userAvtar={userProfile.userAvtar} handleDropMenu={handleDropMenu} handleLogout={handleLogout} dropMenu={dropMenu} setDropMenu={setDropMenu} />
-    <div className='bg-[#e2e8f0] h-full w-full md:flex overflow-auto'>
-      <TweetInput avtar={userProfile.userAvtar} username={userProfile.userName} createTweetFn={createTweetFn}  userId={userProfile.userId}/>
-      <TweetsList isFetched={isFetched} isFetching={isFetching} getTweetList={getTweetList} AllTweets={AllTweets} isError={isError} getAllTweetsError={getAllTweetsError}/>
+    { open ?
+      <div className='bg-[#e2e8f0] h-full w-full md:flex overflow-auto'>
+      <UserAccount id={profileId} setopen={setopen} setProfileId={setProfileId}/>
+      <TweetIdByList id={profileId}/>
     </div>
+      :
+      <div className='bg-[#e2e8f0] h-full w-full md:flex overflow-auto'>
+      <TweetInput avtar={userProfile.userAvtar} username={userProfile.userName} createTweetFn={createTweetFn}  userId={userProfile.userId} showP={showP}/>
+      <TweetsList isFetched={isFetched} isFetching={isFetching} getTweetList={getTweetList} AllTweets={AllTweets} isError={isError} getAllTweetsError={getAllTweetsError} showP={showP}/>
+    </div>}
     </div>}
     <ToastContainer/>
     </>

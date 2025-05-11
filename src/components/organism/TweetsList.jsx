@@ -9,7 +9,7 @@ import { UseTweetDelete } from '../../hooks/apis/mutation/useTweetsMutationHook'
 
 
 
-const TweetsList = ({isFetching,isFetched,AllTweets,getTweetList,isError,getAllTweetsError}) => {
+const TweetsList = ({isFetching,isFetched,AllTweets,getTweetList,isError,getAllTweetsError,showP}) => {
 
     const navigate =useNavigate()
     const {DTisSuccess,DTisError,deleteTweet}=UseTweetDelete();
@@ -35,7 +35,7 @@ const TweetsList = ({isFetching,isFetched,AllTweets,getTweetList,isError,getAllT
     { isFetched && AllTweets &&
         <div className='w-full h-full'>
             {[...AllTweets].reverse().map((tweet)=>{
-               return <Tweets deleteTweet={deleteTweet} tweet={tweet} key={tweet._id}/>
+               return <Tweets deleteTweet={deleteTweet} tweet={tweet} showP={showP} key={tweet._id}/>
             })}
             <ToastContainer/>
         </div>
