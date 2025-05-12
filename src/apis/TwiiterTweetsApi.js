@@ -42,3 +42,13 @@ export const getTweetsById =async(id)=>{
         throw error
     }
 }
+
+export const updateTweet = async(data)=>{
+    try {
+        const response =await axios.post('/Tweets/updateTweet',data,{withCredentials: true })
+        console.log("update tweet =>",response);
+        return response;
+    } catch (error) {
+        throw error
+    }
+}

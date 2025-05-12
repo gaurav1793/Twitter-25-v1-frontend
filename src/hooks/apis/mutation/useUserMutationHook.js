@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query"
-import { userLogOutApi, userSignInApi, userSignUpApi } from "../../../apis/TwitterUserApi"
+import { updateUser, userLogOutApi, userSignInApi, userSignUpApi } from "../../../apis/TwitterUserApi"
 
 export const useUserSignUp = ()=>{
     const{mutateAsync,isError,isPending,isSuccess,data}=useMutation({
@@ -34,4 +34,16 @@ export const useUserLogOut =()=>{
     })
 
     return {LogOutUser ,logOutisError ,logOutIsSuccess}
+}
+
+
+
+export const useUpdateUser = ()=>{
+    const {mutateAsync:UpdateUser ,isError:UpdateUserisError ,isSuccess:UpdateUserisSuccess,data:UpdateUserData,error:UpdateUserError}=useMutation({
+        mutationFn:(data)=>updateUser(data),
+        onSuccess:(data)=>{console.log("success userupdate inside hook",data)},
+        onError:(error)=>{console.log("error userupdate inside hook",error)}
+    })
+
+    return {UpdateUser,UpdateUserisError,UpdateUserisSuccess,UpdateUserData,UpdateUserError}
 }

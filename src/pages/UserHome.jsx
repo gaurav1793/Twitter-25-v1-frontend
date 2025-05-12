@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import TweetsList from '../components/organism/tweetsList';
 import { useUserProfileStore } from '../store/useUserProfileStore';
 import TweetInput from '../components/molecules/TweetInput';
-import { useCreateTweetHook } from '../hooks/apis/mutation/useTweetsMutationHook';
+import { useCreateTweetHook, useUpdateTweet } from '../hooks/apis/mutation/useTweetsMutationHook';
 import { useGetAllTweetHook } from '../hooks/apis/query/useTweetQueryHook';
 import NavBar from '../components/molecules/NavBar';
 import UserAccount from '../components/molecules/UserAccount';
@@ -21,7 +21,7 @@ const UserHome = () => {
   const [open,setopen]=useState(false)
   const [profileId,setProfileId]=useState(null)
   const {userProfile}=useUserProfileStore();
-  
+   const {UpdateTweet,UpdateTweetisError,UpdateTweetisSuccess,UpdateTweetError}=useUpdateTweet();
 
   const { createTweetFn,CTisError,CTisPending,CTisSuccess,CTdata} =useCreateTweetHook();
   const {isFetching,isFetched,isError,AllTweets ,getAllTweetsError,getTweetList} = useGetAllTweetHook()
@@ -68,8 +68,8 @@ const UserHome = () => {
       <NavBar userAvtar={userProfile.userAvtar} handleDropMenu={handleDropMenu} handleLogout={handleLogout} dropMenu={dropMenu} setDropMenu={setDropMenu} />
     { open ?
       <div className='bg-[#e2e8f0] h-full w-full md:flex overflow-auto'>
-      <UserAccount id={profileId} setopen={setopen} setProfileId={setProfileId}/>
-      <TweetIdByList id={profileId}/>
+      <UserAccount id={profileId} setopen={setopen} UpdateTweet={UpdateTweet} UpdateTweetisSuccess={UpdateTweetisSuccess} setProfileId={setProfileId}/>
+      <TweetIdByList id={profileId} UpdateTweetisSuccess={UpdateTweetisSuccess}/>
     </div>
       :
       <div className='bg-[#e2e8f0] h-full w-full md:flex overflow-auto'>

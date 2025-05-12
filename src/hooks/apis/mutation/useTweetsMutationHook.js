@@ -1,5 +1,5 @@
 import {  useMutation } from "@tanstack/react-query"
-import { createTweet, deleteTweetApi } from "../../../apis/TwiiterTweetsApi"
+import { createTweet, deleteTweetApi, updateTweet } from "../../../apis/TwiiterTweetsApi"
 
 
 
@@ -22,4 +22,13 @@ export const UseTweetDelete = ()=>{
         onError:(error)=>{console.log(error)},
     })
     return {DTisSuccess,DTisPending,DTisError,deleteTweet}
+}
+
+export const useUpdateTweet =()=>{
+    const {mutateAsync:UpdateTweet ,isError:UpdateTweetisError ,isSuccess:UpdateTweetisSuccess,error:UpdateTweetError}=useMutation({
+        mutationFn:(data)=>updateTweet(data),
+        onSuccess:(data)=>{console.log("success userupdate inside hook",data)},
+        onError:(error)=>{console.log("error userupdate inside hook",error)}
+    })
+    return {UpdateTweet,UpdateTweetisError,UpdateTweetisSuccess,UpdateTweetError}
 }

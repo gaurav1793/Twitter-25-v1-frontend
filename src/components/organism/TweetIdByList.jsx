@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import Tweets from '../molecules/tweets';
 
-const TweetIdByList = ({id}) => {
+const TweetIdByList = ({id,UpdateTweetisSuccess}) => {
     const {GTbyIdisFetching,GTbyIdisFetched,GTbyIdisError,data,GTbyIdError,gtFn}=useGetAllTweetsByIdHook(id);
     const {DTisSuccess,DTisError,deleteTweet}=UseTweetDelete();
     const navigate =useNavigate()
@@ -22,7 +22,7 @@ const TweetIdByList = ({id}) => {
     useEffect(()=>{
         console.log('first render');
         gtFn(id);
-    },[DTisSuccess])
+    },[DTisSuccess,UpdateTweetisSuccess])
     useEffect(()=>{
         if(DTisError){
             toast.error('some error occured try again after some time !!')
