@@ -15,7 +15,7 @@ const Tweets = ({tweet,deleteTweet,showP}) => {
 
         if (videoExts.includes(ext)) {
             setVid(tweet.img);
-        } else {
+        } else{
             setPic(tweet.img);
         }
         }, [tweet.img]);
@@ -43,8 +43,10 @@ const Tweets = ({tweet,deleteTweet,showP}) => {
 
         <div className='w-1/4 h-1/4'>
             <div>
-                <img src={tweet.avtar} data-userid={tweet.userId} onClick={showP} className='h-full rounded-md shadow-xl hover:border-2 cursor-pointer hover:border-blue-400 object-cover'/>
+                {
+                    <img src={tweet.avtar} alt='no img' data-userid={tweet.userId} onClick={showP} className='h-full rounded-md border-2 border-black shadow-xl hover:border-2 cursor-pointer hover:border-blue-400 object-cover'/>
                 
+                }
             </div>
         </div>
         <div className='w-3/4 h-3/4'>

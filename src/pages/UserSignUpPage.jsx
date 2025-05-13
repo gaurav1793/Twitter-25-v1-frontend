@@ -1,10 +1,11 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useUserSignUp } from '../hooks/apis/mutation/useUserMutationHook';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { CiImageOn } from "react-icons/ci";
 import { FaUserCircle } from "react-icons/fa";
+import { useUserProfileStore } from '../store/useUserProfileStore';
 
 const UserSignUpPage = () => {
 
@@ -18,11 +19,25 @@ const UserSignUpPage = () => {
   const [coverPic, setCoverPic] = useState(null);
   const [coverPicimg, setCoverPicImg] = useState(null)
   const inputcoverPicRef = useRef(null);
-  const { createUser, isError, isPending, isSuccess } = useUserSignUp();
+  const { createUser, isError, isPending, isSuccess,data } = useUserSignUp();
   const navigate = useNavigate();
+  const {setUserProfile}=useUserProfileStore();
 
   const inputRef = useRef(null);
 
+  useEffect(() => {
+      if (isSuccess && data) {
+        console.log(data);
+        toast.success('Sign Up successful!');
+        setUserProfile(data.data.username, data.data.avtar, data.data.coverImage, data.data.email, data.data._id);
+        setTimeout(() => {
+          navigate('/logout');
+        }, 2000);
+      } else if (isError) {
+        toast.error('Error in Signing Up');
+      }
+    },[isError, isSuccess]);
+  
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -65,20 +80,10 @@ const UserSignUpPage = () => {
     });
 
     createUser(data);
-
-
-    if (isPending) {
-      toast.info("waiting for server")
-    }
-    if(isSuccess) {
-      toast.success("Sign Up success")
-        navigate('/')
-    }
-    if (isError) {
-      toast.error("error in Sign Up")
-    }
   };
-
+  if(isPending){
+    toast.info('signing up please wait .......')
+  }
   return (
     <>
       <div className='min-h-screen w-full flex flex-col-reverse  md:flex-row overflow-y-hidden'>
@@ -141,9 +146,10 @@ const UserSignUpPage = () => {
                 accept="image/*,video/*"
                 onChange={handleImg}
                 className="hidden"
+                
               />
             </label>
-            
+
             {pic && (
               <div className='relative'>
                 <img
@@ -214,6 +220,7 @@ const UserSignUpPage = () => {
         </form>
 
       </div>
+      <ToastContainer position='top-center' />
     </>
   )
 }

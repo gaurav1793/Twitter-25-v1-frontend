@@ -2,11 +2,12 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useGetUserById } from '../../hooks/apis/query/useUserQuery'
 import { CiImageOn } from "react-icons/ci";
 import { FaUserCircle } from "react-icons/fa";
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { useUpdateUser } from '../../hooks/apis/mutation/useUserMutationHook';
 
 
-const UserAccount = ({ id, setProfileId, setopen ,UpdateTweetisSuccess,UpdateTweet}) => {
+
+const UserAccount = ({ id, setProfileId, setopen ,UpdateTweetisSuccess,UpdateTweet,setUserProfile}) => {
   const [newName, setNewName] = useState('');
   const [change, setChange] = useState(false);
   const inputRef = useRef(null);
@@ -15,16 +16,41 @@ const UserAccount = ({ id, setProfileId, setopen ,UpdateTweetisSuccess,UpdateTwe
   const [coverPic, setCoverPic] = useState(null);
   const [coverPicimg, setCoverPicImg] = useState(null)
   const inputcoverPicRef = useRef(null);
-  const {UpdateUser,UpdateUserisError,UpdateUserisSuccess,UpdateUserData,UpdateUserError}=useUpdateUser()
- 
+  const {UpdateUser,UpdateUserisError,UpdateUserisSuccess,UpdateUserData,UpdateUserError,isPending}=useUpdateUser()
+
 
 
   console.log(id)
   const { GUByIdFn, GUByIdisFetching, GUByIdisFetched, GUByIdData, GUByIdisError } = useGetUserById(id);
   
   useEffect(() => {
-    GUByIdFn(id)
+    if(UpdateUserisSuccess)
+    {
+    console.log("m chl rha hu bhai ",UpdateUserData);
+    //  const username=UpdateUserData.username;
+    // const avtar=UpdateUserData.avtar;
+    // const coverImage=UpdateUserData.coverImage;
+    // const email=UpdateUserData.email;
+    // const _id=UpdateUserData._id;
+    setUserProfile(UpdateUserData.username,UpdateUserData.avtar,UpdateUserData.coverImage,UpdateUserData.email,UpdateUserData._id);
+  }
+  console.log("updateuser wala chl rha hu")
+    GUByIdFn(id);
   }, [UpdateUserisSuccess,UpdateUserData])
+
+  // useEffect(()=>{
+  //   console.log("nhi chl rha kya")
+  //   if(GUByIdisFetched&&GUByIdData){
+  //     console.log("useeffect",GUByIdData)
+  //   }
+    
+  //   // const username=GUByIdData.username;
+  //   // const avtar=GUByIdData.avtar;
+  //   // const coverImage=GUByIdData.coverImage;
+  //   // const email=GUByIdData.email;
+  //   // const _id=GUByIdData._id;
+  //   // setUserProfile(username,avtar,coverImage,email,_id)
+  // },[GUByIdisFetched , GUByIdData ])
 
   function handleClose() {
     setopen(false);
@@ -86,7 +112,9 @@ const UserAccount = ({ id, setProfileId, setopen ,UpdateTweetisSuccess,UpdateTwe
 
     UpdateTweet(data1);
     
-    UpdateUser(data);
+    setTimeout(() => {
+      UpdateUser(data);
+    }, 1000);
 
     setNewName('');
     setImg(null);
@@ -216,7 +244,6 @@ const UserAccount = ({ id, setProfileId, setopen ,UpdateTweetisSuccess,UpdateTwe
           }
         </div>
       }
-
     </>
   )
 }
