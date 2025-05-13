@@ -20,7 +20,10 @@ const UserHome = () => {
   const [dropMenu,setDropMenu]=useState(false);
   const [open,setopen]=useState(false)
   const [profileId,setProfileId]=useState(null)
-  const {userProfile}=useUserProfileStore();
+  // const {userProfile,setUserProfile}=useUserProfileStore();
+  const userProfile = useUserProfileStore((state) => state.userProfile); 
+  const setUserProfile = useUserProfileStore((state) => state.setUserProfile);
+
    const {UpdateTweet,UpdateTweetisError,UpdateTweetisSuccess,UpdateTweetError}=useUpdateTweet();
 
   const { createTweetFn,CTisError,CTisPending,CTisSuccess,CTdata} =useCreateTweetHook();
@@ -30,6 +33,10 @@ const UserHome = () => {
     LogOutUser();
   }
 
+   useEffect(() => {
+    console.log("User profile changed:", userProfile);
+  }, [userProfile]);
+  
   useEffect(()=>{
     if(logOutIsSuccess){
       toast.success('logOut Success !!');
@@ -68,7 +75,7 @@ const UserHome = () => {
       <NavBar userAvtar={userProfile.userAvtar} handleDropMenu={handleDropMenu} handleLogout={handleLogout} dropMenu={dropMenu} setDropMenu={setDropMenu} />
     { open ?
       <div className='bg-[#e2e8f0] h-full w-full md:flex overflow-auto'>
-      <UserAccount id={profileId} setopen={setopen} UpdateTweet={UpdateTweet} UpdateTweetisSuccess={UpdateTweetisSuccess} setProfileId={setProfileId}/>
+      <UserAccount id={profileId} setUserProfile={setUserProfile} setopen={setopen} UpdateTweet={UpdateTweet} UpdateTweetisSuccess={UpdateTweetisSuccess} setProfileId={setProfileId}/>
       <TweetIdByList id={profileId} UpdateTweetisSuccess={UpdateTweetisSuccess}/>
     </div>
       :

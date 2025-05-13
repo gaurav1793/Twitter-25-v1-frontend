@@ -2,14 +2,14 @@ import { useMutation } from "@tanstack/react-query"
 import { updateUser, userLogOutApi, userSignInApi, userSignUpApi } from "../../../apis/TwitterUserApi"
 
 export const useUserSignUp = ()=>{
-    const{mutateAsync,isError,isPending,isSuccess,data}=useMutation({
-        mutationFn:(data)=>{userSignUpApi(data)},
+    const{mutateAsync:createUser,isError,isPending,isSuccess,data}=useMutation({
+        mutationFn:(data)=>userSignUpApi(data),
         onSuccess:(data)=>{console.log("success",data)},
         onError:(error)=>{console.log(error)}
 
     })
     return {
-        createUser:mutateAsync,
+        createUser,
         isPending,
         isSuccess,isError,
         data
@@ -39,11 +39,11 @@ export const useUserLogOut =()=>{
 
 
 export const useUpdateUser = ()=>{
-    const {mutateAsync:UpdateUser ,isError:UpdateUserisError ,isSuccess:UpdateUserisSuccess,data:UpdateUserData,error:UpdateUserError}=useMutation({
+    const {mutateAsync:UpdateUser ,isError:UpdateUserisError ,isSuccess:UpdateUserisSuccess,data:UpdateUserData,error:UpdateUserError ,isPending}=useMutation({
         mutationFn:(data)=>updateUser(data),
         onSuccess:(data)=>{console.log("success userupdate inside hook",data)},
         onError:(error)=>{console.log("error userupdate inside hook",error)}
     })
 
-    return {UpdateUser,UpdateUserisError,UpdateUserisSuccess,UpdateUserData,UpdateUserError}
+    return {UpdateUser,UpdateUserisError,UpdateUserisSuccess,UpdateUserData,UpdateUserError,isPending}
 }

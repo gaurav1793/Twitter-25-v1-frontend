@@ -32,7 +32,7 @@ const TweetInput = ({avtar,username,createTweetFn,userId,showP}) => {
     <> 
         <div className="bg-white h-1/3 w-4/6 md:h-1/2 rounded-2xl shadow-lg md:w-3/6 p-4 ml-20 mb-4 mt-4 space-y-2 md:sticky top-4">
             <div className='flex justify-between items-center  h-1/3 px-2'>
-                <img src={avtar} data-userid={userId} onClick={showP} className='w-1/3 h-full md:h-auto rounded-md shadow-xl hover:border-2 cursor-pointer hover:border-blue-400 object-cover'/>
+                <img src={avtar} data-userid={userId} onClick={showP} className='w-1/3 h-full md:border-2 md:border-black rounded-md shadow-xl hover:border-2 cursor-pointer hover:border-blue-400 object-cover'/>
                 
                 <h2 className='font-bold text-4xl'> {username}</h2>
             </div>

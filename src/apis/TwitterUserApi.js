@@ -55,7 +55,7 @@ export const updateUser = async(data)=>{
     try {
         const response = await axios.post('/User/updateUser',data,{ withCredentials: true })
         console.log(response);
-        return response.data;
+        return response.data.data;
     } catch (error) {
         throw error
     }
