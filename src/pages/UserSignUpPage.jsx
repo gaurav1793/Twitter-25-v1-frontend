@@ -22,7 +22,6 @@ const UserSignUpPage = () => {
   const { createUser, isError, isPending, isSuccess,data } = useUserSignUp();
   const navigate = useNavigate();
   const {setUserProfile}=useUserProfileStore();
-
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -68,6 +67,10 @@ const UserSignUpPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(img===null){
+      return;
+    }
+    console.log("hi");
     const data = new FormData();
 
     data.append('avtar', img);
@@ -81,9 +84,6 @@ const UserSignUpPage = () => {
 
     createUser(data);
   };
-  if(isPending){
-    toast.info('signing up please wait .......')
-  }
   return (
     <>
       <div className='min-h-screen w-full flex flex-col-reverse  md:flex-row overflow-y-hidden'>
@@ -137,8 +137,8 @@ const UserSignUpPage = () => {
             required
           />
           <div className=" flex  items-center gap-5  rounded-lg">
-            <h4 className='text-xs text-gray-400 pl-2'>Add Avtar</h4>
-            <label className="cursor-pointer">
+            <h4 className='text-xs text-gray-400 pl-2'>Add Avtar <span className='text-red-500 font-bold text-xl'>*</span></h4>
+            <label className="cursor-pointer" >
               <FaUserCircle color="gray" className="h-7 w-7 md:h-8 md:w-8" />
               <input
                 ref={inputRef}
@@ -146,7 +146,7 @@ const UserSignUpPage = () => {
                 accept="image/*,video/*"
                 onChange={handleImg}
                 className="hidden"
-                
+ 
               />
             </label>
 
