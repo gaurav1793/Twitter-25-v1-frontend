@@ -4,7 +4,7 @@ import { useGetAllTweetsByIdHook } from '../../hooks/apis/query/useTweetQueryHoo
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import { useNavigate } from 'react-router-dom';
-import Tweets from '../molecules/tweets';
+import Tweets from '../molecules/Tweets';
 
 const TweetIdByList = ({id,UpdateTweetisSuccess}) => {
     const {GTbyIdisFetching,GTbyIdisFetched,GTbyIdisError,data,GTbyIdError,gtFn}=useGetAllTweetsByIdHook(id);
