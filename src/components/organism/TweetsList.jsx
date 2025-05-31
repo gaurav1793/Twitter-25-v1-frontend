@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import { useGetAllTweetHook } from '../../hooks/apis/query/useTweetQueryHook';
+import React, { useEffect } from 'react'
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import Tweets from '../molecules/tweets';

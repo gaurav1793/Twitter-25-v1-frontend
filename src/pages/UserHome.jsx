@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useUserLogOut } from '../hooks/apis/mutation/useUserMutationHook'
-import { useUserGetProfile } from '../hooks/apis/query/useUserQuery';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer,toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
-import TweetsList from '../components/organism/tweetsList';
+import TweetsList from '../components/organism/TweetsList';
 import { useUserProfileStore } from '../store/useUserProfileStore';
 import TweetInput from '../components/molecules/TweetInput';
 import { useCreateTweetHook, useUpdateTweet } from '../hooks/apis/mutation/useTweetsMutationHook';

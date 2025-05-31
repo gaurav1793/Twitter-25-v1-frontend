@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useGetUserById } from '../../hooks/apis/query/useUserQuery'
 import { CiImageOn } from "react-icons/ci";
 import { FaUserCircle } from "react-icons/fa";
-import { toast, ToastContainer } from 'react-toastify';
+
 import { useUpdateUser } from '../../hooks/apis/mutation/useUserMutationHook';
 
 
